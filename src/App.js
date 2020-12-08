@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import logo from './logo.png'
+import logo from './assets/logo.png'
 
 const AppWrapper = styled.div`
   margin: 2rem auto;
