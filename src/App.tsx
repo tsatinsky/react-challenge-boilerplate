@@ -1,17 +1,20 @@
 import styled from 'styled-components';
 
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import getBackend from "./lib/backendProvider";
 import {Payment} from "./lib/payment";
 import PaymentsTable from "./Components/PaymentsTable";
+import PaymentDetail from "./Components/PaymentDetail";
 
 const AppWrapper = styled.div`
   margin: 2rem auto;
   max-width: 800px;
+  position: relative;
 `;
 
 function App() {
     const [payments, setPayments] = useState<Array<Payment>>([]);
+    const [currentPayment, setCurrentPayment] = useState<Payment | undefined>(undefined)
 
     useEffect(() => {
         (async function getPayments() {
@@ -23,10 +26,13 @@ function App() {
         })();
     }, []);
 
+    const handleBackClick = useCallback(() => setCurrentPayment(undefined), []);
+
     return (
         <AppWrapper>
             <h1>Transactions</h1>
-            <PaymentsTable payments={payments}/>
+            {!currentPayment && <PaymentsTable payments={payments} onPaymentClick={(p) => setCurrentPayment(p)}/>}
+            {currentPayment && <PaymentDetail payment={currentPayment} onBackClick={handleBackClick}/>}
         </AppWrapper>
     );
 }
