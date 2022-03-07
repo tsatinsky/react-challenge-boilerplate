@@ -1,13 +1,7 @@
 import React, {useCallback} from "react";
 import {Payment} from "../lib/payment";
-import styled from 'styled-components';
 import {getInstrumentName} from "./paymentStrings";
-
-const StyledPaymentsTable = styled.table`
-    & tr{
-      cursor: pointer;
-    }
-`;
+import Panel from "./design/Panel";
 
 export interface PaymentTableProps {
     payments: Array<Payment>,
@@ -19,7 +13,7 @@ const PaymentsTable: React.FC<PaymentTableProps> = ({ payments, onPaymentClick }
         onPaymentClick(payment);
     }, [onPaymentClick])
     return (
-        <StyledPaymentsTable>
+        <Panel>
             <tbody>
             {
                 payments.map((payment) => (
@@ -35,7 +29,7 @@ const PaymentsTable: React.FC<PaymentTableProps> = ({ payments, onPaymentClick }
                 ))
             }
             </tbody>
-        </StyledPaymentsTable>
+        </Panel>
     )
 }
 

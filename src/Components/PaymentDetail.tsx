@@ -1,16 +1,9 @@
 import React from "react";
 import {isPaymentCardInstrumentData, isPaypalOrderInstrumentData, Payment} from "../lib/payment";
-import styled from "styled-components";
 import {getInstrumentName} from "./paymentStrings";
-
-const StyledPaymentDetail = styled.div`
-  width: 100%;
-  background-color: white;
-  min-height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
+import Panel from "./design/Panel";
+import Grid from "./design/Grid";
+import GridRow from "./design/GridRow";
 
 export interface PaymentDetailProps {
     payment: Payment
@@ -30,79 +23,87 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
         processorMerchantId,
     } = payment;
     return (
-        <StyledPaymentDetail>
-            <button onClick={onBackClick}>{"<- transactions"}</button><br/>
-            <br/>
-            <div>
-                {currencyCode} {amount}
-                {/*Show refund amount and total only if something was refunded*/}
-                {(payment.amountRefunded !== 0) && (<>
-                    {" "} Refund: {amountRefunded} Final: {amount - amountRefunded}
-                </>)}
-                <br/>
-            </div>
+        <Grid columns={2}>
+            <GridRow span={2}>
+                <button onClick={onBackClick}>{"<- transactions"}</button><br/>
+            </GridRow>
 
-            <div>
-                Currency<br/>
-                {currencyCode}<br/>
-                Processor<br/>
-                {processor}<br/>
-                Payment method<br/>
-                {getInstrumentName(payment.paymentInstrument.paymentInstrumentData)}
+            <GridRow span={2}>
+                <Panel>
+                    {currencyCode} {amount}
+                    {/*Show refund amount and total only if something was refunded*/}
+                    {(payment.amountRefunded !== 0) && (<>
+                        {" "} Refund: {amountRefunded} Final: {amount - amountRefunded}
+                    </>)}
+                </Panel>
+            </GridRow>
 
-                {isPaymentCardInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
-                    {" / "} {paymentInstrument.paymentInstrumentData.network}
-                </>)} <br/>
-                Your reference<br/>
-                {orderId}<br/>
-                Submitted<br/>
-                {date}<br/>
-                {status}<br/>
-                <br/>
-            </div>
+            <GridRow span={2}>
+                <Panel>
+                    Currency<br/>
+                    {currencyCode}<br/>
+                    Processor<br/>
+                    {processor}<br/>
+                    Payment method<br/>
+                    {getInstrumentName(payment.paymentInstrument.paymentInstrumentData)}
 
-            <div>
-                Processor<br/>
-                Account ID<br/>
-                {processorMerchantId}<br/>
-                Transaction ID<br/>
-                (fetch it)<br/>
-                <br/>
-            </div>
+                    {isPaymentCardInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
+                        {" / "} {paymentInstrument.paymentInstrumentData.network}
+                    </>)} <br/>
+                    Your reference<br/>
+                    {orderId}<br/>
+                    Submitted<br/>
+                    {date}<br/>
+                    {status}<br/>
+                </Panel>
+            </GridRow>
 
-            <div>
-                Payment method<br/>
-                {
-                    isPaymentCardInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
-                            Cardholder name<br/>
-                            {paymentInstrument.paymentInstrumentData.cardholderName}<br/>
-                            Card number<br/>
-                            •••• •••• •••• {paymentInstrument.paymentInstrumentData.last4Digits}<br/>
-                            Expiration<br/>
-                            {paymentInstrument.paymentInstrumentData.expirationMonth}/{paymentInstrument.paymentInstrumentData.expirationYear}<br/>
-                        </>
-                    )
-                }
-                {
-                    isPaypalOrderInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
-                            Paypal order ID<br/>
-                            {paymentInstrument.paymentInstrumentData.paypalOrderId}<br/>
-                        </>
-                    )
-                }
-                <br/>
-            </div>
+            <GridRow>
+                <Panel>
+                    Processor<br/>
+                    Account ID<br/>
+                    {processorMerchantId}<br/>
+                    Transaction ID<br/>
+                    (fetch it)<br/>
+                </Panel>
+            </GridRow>
+
+            <GridRow>
+                <Panel>
+                    Payment method<br/>
+                    {
+                        isPaymentCardInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
+                                Cardholder name<br/>
+                                {paymentInstrument.paymentInstrumentData.cardholderName}<br/>
+                                Card number<br/>
+                                •••• •••• •••• {paymentInstrument.paymentInstrumentData.last4Digits}<br/>
+                                Expiration<br/>
+                                {paymentInstrument.paymentInstrumentData.expirationMonth}/{paymentInstrument.paymentInstrumentData.expirationYear}<br/>
+                            </>
+                        )
+                    }
+                    {
+                        isPaypalOrderInstrumentData(paymentInstrument.paymentInstrumentData) && (<>
+                                Paypal order ID<br/>
+                                {paymentInstrument.paymentInstrumentData.paypalOrderId}<br/>
+                            </>
+                        )
+                    }
+                </Panel>
+            </GridRow>
 
             {
-                paymentInstrument.threeDSecureAuthentication !== null && (<div>
-                    3DSecure<br/>
-                    Response<br/>
-                    {paymentInstrument.threeDSecureAuthentication.responseCode}<br/>
-                        <br/>
-                    </div>
+                paymentInstrument.threeDSecureAuthentication !== null && (
+                    <GridRow>
+                        <Panel>
+                            3DSecure<br/>
+                            Response<br/>
+                            {paymentInstrument.threeDSecureAuthentication.responseCode}<br/>
+                        </Panel>
+                    </GridRow>
                 )
             }
-        </StyledPaymentDetail>
+        </Grid>
     );
 }
 
