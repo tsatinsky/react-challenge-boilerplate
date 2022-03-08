@@ -6,6 +6,7 @@ export const theme = {
     baseRadius: "4px",
     basePadding: "15px",
     baseMargin: "10px",
+    separatorColor: "#ddd"
 };
 
 export function fromTheme(themePropName: keyof typeof theme) {

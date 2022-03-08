@@ -1,10 +1,15 @@
 import styled from 'styled-components'
 import { fromTheme } from '../../style';
 
-const Panel = styled.div`
+const Panel = styled.div<{noPadding?:boolean}>`
   border-radius: ${fromTheme("baseRadius")};
   background-color: ${fromTheme("backgroundColor")};
-  padding: ${fromTheme("basePadding")};
+  padding: ${(props) => {
+      if (props.noPadding) {
+          return 0;
+      }
+      return fromTheme("basePadding")
+  }};
   box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   height: 100%;
 `;

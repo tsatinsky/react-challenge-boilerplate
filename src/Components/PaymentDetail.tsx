@@ -23,7 +23,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
         processorMerchantId,
     } = payment;
     return (
-        <Grid columns={2}>
+        <Grid proportions={[1, 1]}>
             <GridRow span={2}>
                 <button onClick={onBackClick}>{"<- transactions"}</button><br/>
             </GridRow>

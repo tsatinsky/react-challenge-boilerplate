@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {useCallback, useEffect, useState} from "react";
 import getBackend from "./lib/backendProvider";
 import {Payment} from "./lib/payment";
-import PaymentsTable from "./Components/PaymentsTable";
+import PaymentsList from "./Components/PaymentsList";
 import PaymentDetail from "./Components/PaymentDetail";
 
 const AppWrapper = styled.div`
@@ -32,7 +32,7 @@ function App() {
     return (
         <AppWrapper>
             <h1>Transactions</h1>
-            {!currentPayment && payments.length!== 0 && <PaymentsTable payments={payments} onPaymentClick={(p) => setCurrentPayment(p)}/>}
+            {!currentPayment && payments.length!== 0 && <PaymentsList payments={payments} onPaymentClick={(p) => setCurrentPayment(p)}/>}
             {currentPayment && <PaymentDetail payment={currentPayment} onBackClick={handleBackClick}/>}
         </AppWrapper>
     );
