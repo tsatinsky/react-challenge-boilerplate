@@ -4,6 +4,7 @@ import {getInstrumentName} from "./paymentStrings";
 import Panel from "./design/Panel";
 import Grid from "./design/Grid";
 import GridRow from "./design/GridRow";
+import DateTime from "./design/DateTime";
 
 export interface PaymentDetailProps {
     payment: Payment
@@ -53,7 +54,8 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
                     Your reference<br/>
                     {orderId}<br/>
                     Submitted<br/>
-                    {date}<br/>
+                    <DateTime date={payment.dateParsed} />
+                    <br/>
                     {status}<br/>
                 </Panel>
             </GridRow>

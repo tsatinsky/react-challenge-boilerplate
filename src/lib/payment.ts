@@ -37,6 +37,7 @@ export interface Payment {
     id: string;
     // ISO 8601 string
     date: string;
+    dateParsed: Date;
     // STRIPE PAYPAL ADYEN BRAINTREE
     processor: string;
     processorMerchantId: string;

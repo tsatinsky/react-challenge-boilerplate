@@ -21,7 +21,12 @@ function App() {
             const backend = await getBackend();
             if (backend) {
                 const paymentsResponse = await backend.request("get", "/payments");
-                setPayments(paymentsResponse.data.data);
+                setPayments(paymentsResponse.data.data.map((original: any) => {
+                    return {
+                        ...original,
+                        dateParsed: new Date(original.date),
+                    }
+                }));
                 // for testing setCurrentPayment(paymentsResponse.data.data[0])
             }
         })();

@@ -6,6 +6,7 @@ import PanelRow from "./design/PanelRow";
 import Grid from "./design/Grid";
 import GridRow from "./design/GridRow";
 import AlignText from "./design/AlignText";
+import DateTime from "./design/DateTime";
 
 export interface PaymentsListProps {
     payments: Array<Payment>,
@@ -32,7 +33,9 @@ const PaymentsList: React.FC<PaymentsListProps> = ({ payments, onPaymentClick })
                                 {`${payment.processor} ${getInstrumentName(payment.paymentInstrument.paymentInstrumentData)}`}
                             </GridRow>
                             <GridRow>{payment.orderId}</GridRow>
-                            <GridRow>{payment.date}</GridRow>
+                            <GridRow>
+                                <DateTime date={payment.dateParsed}/>
+                            </GridRow>
                             <GridRow>{">"}</GridRow>
                         </Grid>
 

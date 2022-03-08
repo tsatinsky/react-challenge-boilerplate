@@ -5,6 +5,7 @@ export const theme = {
     backgroundColor: "white",
     baseRadius: "4px",
     basePadding: "15px",
+    morePadding: "20px",
     baseMargin: "10px",
     separatorColor: "#ddd"
 };
