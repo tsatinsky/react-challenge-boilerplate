@@ -7,6 +7,10 @@ const PanelRow = styled.div`
   &:last-child{
     border-bottom: none;
   }
+  cursor: pointer;
+  & * {
+    vertical-align: middle;
+  }
 `;
 
 export default PanelRow;

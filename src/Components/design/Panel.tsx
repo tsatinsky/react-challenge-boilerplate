@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 import { fromTheme } from '../../style';
 
-const Panel = styled.div<{noPadding?:boolean}>`
+export interface PanelProps {
+    noPadding?:boolean;
+}
+
+const Panel = styled.div<PanelProps>`
   border-radius: ${fromTheme("baseRadius")};
   background-color: ${fromTheme("backgroundColor")};
   padding: ${(props) => {

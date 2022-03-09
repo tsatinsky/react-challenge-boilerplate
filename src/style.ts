@@ -1,13 +1,29 @@
 import {createGlobalStyle} from "styled-components";
 
+// TODO: use rems?
 export const theme = {
     pageBackground: "#f5f5f5",
+    errorBackground: "#faeae8",
+    errorTextColor: "red",
+    successBackground: "#dcf9eb",
+    successTextColor: "green",
+    neutralBackground: "lightgray",
+    neutralTextColor: "#747474",
+    textColor: "black",
+    textColorDimmed: "gray",
+    textSizeSmall: "12px",
+    textSize: "13px",
+    textSizeBigger: "15px",
+    textSizeBig: "16px",
+    textSizeLarge: "30px",
     backgroundColor: "white",
     baseRadius: "4px",
     basePadding: "15px",
     morePadding: "20px",
     baseMargin: "10px",
-    separatorColor: "#ddd"
+    moreMargin: "20px",
+    separatorColor: "#ddd",
+    linkTextColor: "#4c5df3",
 };
 
 export function fromTheme(themePropName: keyof typeof theme) {
@@ -27,6 +43,7 @@ const Style = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: ${fromTheme("pageBackground")};
+    font-size: ${fromTheme("textSize")};
   }
 
   code {

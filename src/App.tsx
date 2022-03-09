@@ -5,6 +5,7 @@ import getBackend from "./lib/backendProvider";
 import {Payment} from "./lib/payment";
 import PaymentsList from "./Components/PaymentsList";
 import PaymentDetail from "./Components/PaymentDetail";
+import {Text} from "./Components/design/Typography";
 
 const AppWrapper = styled.div`
   margin: 2rem auto;
@@ -36,7 +37,7 @@ function App() {
 
     return (
         <AppWrapper>
-            <h1>Transactions</h1>
+            {payments.length === 0 && <Text>Loading...</Text>}
             {!currentPayment && payments.length!== 0 && <PaymentsList payments={payments} onPaymentClick={(p) => setCurrentPayment(p)}/>}
             {currentPayment && <PaymentDetail payment={currentPayment} onBackClick={handleBackClick}/>}
         </AppWrapper>
