@@ -6,7 +6,7 @@ import Grid from "./design/Grid";
 import GridRow from "./design/GridRow";
 import DateTime from "./design/DateTime";
 import {H2, H4, Text} from "./design/Typography";
-import Btn from "./design/Btn";
+import Button from "./design/Button";
 import ProcessorIcon from "./shared/ProcessorIcon";
 import PaymentStatusBadge from "./shared/PaymentStatusBadge";
 import Floating from "./design/Floating";
@@ -31,9 +31,9 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
     return (
         <Grid proportions={[1, 1]}>
             <GridRow span={2}>
-                <Btn onClick={onBackClick}>
+                <Button onClick={onBackClick}>
                     {"← Transactions"}
-                </Btn>
+                </Button>
             </GridRow>
 
             <GridRow span={2}>

@@ -9,7 +9,7 @@ import {H1, Text} from "./design/Typography";
 import PaymentStatusBadge from "./shared/PaymentStatusBadge";
 import ProcessorIcon from "./shared/ProcessorIcon";
 import CardNetworkIcon from "./shared/CardNetworkIcon";
-import Btn from "./design/Btn";
+import Button from "./design/Button";
 
 export interface PaymentsListProps {
     payments: Array<Payment>,
@@ -64,9 +64,9 @@ const PaymentsList: React.FC<PaymentsListProps> = ({payments, onPaymentClick}) =
                                     </Text>
                                 </GridRow>
                                 <GridRow>
-                                    <Btn onClick={() => handlePaymentClick(payment)}>
+                                    <Button onClick={() => handlePaymentClick(payment)}>
                                         {"〉"}
-                                    </Btn>
+                                    </Button>
                                 </GridRow>
                             </Grid>
 

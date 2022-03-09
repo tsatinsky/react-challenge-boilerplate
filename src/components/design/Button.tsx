@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import {fromTheme} from "../../style";
 
-const StyledBtn = styled.button`
+const StyledButton = styled.button`
   border: none;
   background: none;
   color: blue;
@@ -14,8 +14,8 @@ const StyledBtn = styled.button`
 export interface BtnProps {
     onClick():void
 }
-const Btn: React.FC<BtnProps> = ({children, onClick}) => (
-    <StyledBtn onClick={onClick}>{children}</StyledBtn>
+const Button: React.FC<BtnProps> = ({children, onClick}) => (
+    <StyledButton onClick={onClick}>{children}</StyledButton>
 );
 
-export default Btn;
+export default Button;
