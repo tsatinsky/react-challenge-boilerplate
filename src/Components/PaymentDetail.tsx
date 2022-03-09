@@ -54,7 +54,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
             </GridRow>
 
             <GridRow span={2}>
-                <Panel>
+                <Panel data-testid="overview-panel">
                     <Grid proportions={[2, 2, 3, 6, 6, 4]}>
                         <GridRow>
                             <H4>Currency</H4>
@@ -91,7 +91,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
             </GridRow>
 
             <GridRow>
-                <Panel>
+                <Panel data-testid="processor-panel">
                     <H2>
                         <ProcessorIcon processor={payment.processor} />
                         <span>Processor</span>
@@ -105,7 +105,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
 
             <GridRow>
                 <Panel>
-                    <H2>
+                    <H2 data-testid="instrument-panel">
                         {isPaymentCardInstrumentData(payment.paymentInstrument.paymentInstrumentData) &&
                             <CardNetworkIcon
                                 network={payment.paymentInstrument.paymentInstrumentData.network}/>
@@ -139,7 +139,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({payment, onBackClick}) => 
             {
                 paymentInstrument.threeDSecureAuthentication !== null && (
                     <GridRow>
-                        <Panel>
+                        <Panel data-testid="threeDS-panel">
                             <H2>3DSecure</H2>
                             <H4>Response</H4>
                             <Text>{paymentInstrument.threeDSecureAuthentication.responseCode}</Text>
