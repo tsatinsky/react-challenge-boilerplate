@@ -1,6 +1,6 @@
 import mock from 'xhr-mock';
 
-import {Backend} from "./backend";
+import {Backend} from "../backend";
 
 describe("backend", () => {
     beforeEach(() => mock.setup());

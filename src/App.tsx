@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import {useCallback, useEffect, useState} from "react";
 import getBackend from "./lib/backendProvider";
 import {Payment} from "./lib/payment";
-import PaymentsList from "./Components/PaymentsList";
-import PaymentDetail from "./Components/PaymentDetail";
-import {Text} from "./Components/design/Typography";
+import PaymentsList from "./components/PaymentsList";
+import PaymentDetail from "./components/PaymentDetail";
+import {Text} from "./components/design/Typography";
 
 const AppWrapper = styled.div`
   margin: 2rem auto;
@@ -28,7 +28,6 @@ function App() {
                         dateParsed: new Date(original.date),
                     }
                 }));
-                // for testing setCurrentPayment(paymentsResponse.data.data[0])
             }
         })();
     }, []);
