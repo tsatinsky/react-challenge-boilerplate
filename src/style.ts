@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-// TODO: use rems
 export const theme = {
     pageBackground: "#f5f5f5",
     errorBackground: "#faeae8",
@@ -11,17 +10,17 @@ export const theme = {
     neutralTextColor: "#747474",
     textColor: "black",
     textColorDimmed: "gray",
-    textSizeSmall: "12px",
-    textSize: "13px",
-    textSizeBigger: "15px",
-    textSizeBig: "16px",
-    textSizeLarge: "30px",
+    textSizeSmall: "0.75rem",
+    textSize: "0.813rem",
+    textSizeBigger: "1rem",
+    textSizeBig: "1.063rem",
+    textSizeLarge: "1.875rem",
     backgroundColor: "white",
-    baseRadius: "4px",
-    basePadding: "15px",
-    morePadding: "20px",
-    baseMargin: "10px",
-    moreMargin: "20px",
+    baseRadius: "0.25rem",
+    basePadding: "0.938rem",
+    morePadding: "1.25rem",
+    baseMargin: "0.625rem",
+    moreMargin: "1.25rem",
     separatorColor: "#ddd",
     linkTextColor: "#4c5df3",
 };
