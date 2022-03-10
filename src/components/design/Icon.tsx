@@ -5,7 +5,7 @@ import styled from "styled-components";
  * Background defined by the "imagePath" property
  */
 
-export interface IconProps{
+export interface IconProps {
     imagePath: string;
 }
 

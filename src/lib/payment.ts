@@ -55,6 +55,7 @@ export interface Payment {
     orderId: string;
     amount: number;
     amountRefunded: number;
+    amountCaptured: number;
     currencyCode: string;
     paymentInstrument: PaymentInstrument;
 }

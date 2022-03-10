@@ -7,6 +7,9 @@ const headingBaseCSS = css`
         vertical-align: middle;
     }
     margin: 0 0 ${fromTheme("baseMargin")} 0;
+    & > span {
+        margin-right: ${fromTheme("baseMargin")};
+    }
 `;
 
 const H1 = styled.h1`

@@ -2,7 +2,6 @@ import {
     isPaymentCardInstrumentData,
     isPaypalOrderInstrumentData,
     PaymentInstrumentData,
-    PaymentProcessor,
 } from "../lib/payment";
 
 export function getInstrumentName(paymentInstrumentData: PaymentInstrumentData) {
@@ -15,8 +14,8 @@ export function getInstrumentName(paymentInstrumentData: PaymentInstrumentData) 
     return "Unknown";
 }
 
-export function capitalise(processor: PaymentProcessor) {
-    const low = processor.toLowerCase();
+export function capitalise(text: string) {
+    const low = text.toLowerCase().replace("_", " ");
     return low.charAt(0).toUpperCase() + low.slice(1);
 }
 

@@ -7,7 +7,7 @@ import { fromTheme } from "../../style";
  */
 
 export interface ColumnGridProps {
-    proportions?: number[]
+    proportions?: number[];
 }
 
 const ColumnGrid = styled.div<ColumnGridProps>`

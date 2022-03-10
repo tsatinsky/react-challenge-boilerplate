@@ -9,8 +9,11 @@ import { H2, H4, Text } from "./design/Typography";
 import Button from "./design/Button";
 import ProcessorIcon from "./shared/ProcessorIcon";
 import PaymentStatusBadge from "./shared/PaymentStatusBadge";
-import Floating from "./design/Floating";
+import Float from "./design/Float";
 import CardNetworkIcon from "./shared/CardNetworkIcon";
+import ThreeDSIcon from "./shared/ThreeDSIcon";
+import ThreeDSResponseBadge from "./shared/ThreeDSResponseBadge";
+import Number from "./design/Number";
 
 export interface PaymentDetailProps {
     payment: Payment;
@@ -27,38 +30,43 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
         orderId,
         status,
         processorMerchantId,
+        amountCaptured,
     } = payment;
     return (
         <ColumnGrid proportions={[1, 1]}>
             <GridColumn span={2}>
                 <Button onClick={onBackClick}>{"← Transactions"}</Button>
+                <br />
+                <br />
             </GridColumn>
 
             <GridColumn span={2}>
                 <div>
-                    <Floating>
+                    <Float>
                         <Text large>
-                            {getCurrencySymbol(currencyCode)} {amount}
+                            {getCurrencySymbol(currencyCode)} <Number value={amount} />
                         </Text>
-                    </Floating>
-                    <Floating>
+                    </Float>
+                    <Float>
                         <H4>Refund</H4>
                         <Text big dimmed>
-                            {amountRefunded}
+                            {getCurrencySymbol(currencyCode)}
+                            <Number value={amountRefunded} />
                         </Text>
-                    </Floating>
-                    <Floating>
+                    </Float>
+                    <Float>
                         <H4>Final</H4>
                         <Text big dimmed>
-                            {amount - amountRefunded}
+                            {getCurrencySymbol(currencyCode)}
+                            <Number value={amountCaptured} />
                         </Text>
-                    </Floating>
+                    </Float>
                 </div>
             </GridColumn>
 
             <GridColumn span={2}>
                 <Panel data-testid="overview-panel">
-                    <ColumnGrid proportions={[2, 2, 3, 6, 6, 4]}>
+                    <ColumnGrid proportions={[2, 2, 4, 6, 6, 4]}>
                         <GridColumn>
                             <H4>Currency</H4>
                             <Text bigger>{currencyCode}</Text>
@@ -89,9 +97,9 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                             </Text>
                         </GridColumn>
                         <GridColumn>
-                            <Floating float="right">
+                            <Float direction="right">
                                 <PaymentStatusBadge status={status} large={true} />
-                            </Floating>
+                            </Float>
                         </GridColumn>
                     </ColumnGrid>
                 </Panel>
@@ -109,7 +117,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                     <br />
                     <br />
                     <H4>Transaction ID</H4>
-                    <Text bigger>{"fetch it"}</Text>
+                    <Text bigger>{"Not implemented"}</Text>
                     <br />
                     <br />
                 </Panel>
@@ -122,6 +130,9 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                             <CardNetworkIcon
                                 network={payment.paymentInstrument.paymentInstrumentData.network}
                             />
+                        )}
+                        {isPaypalOrderInstrumentData(payment.paymentInstrument.paymentInstrumentData) && (
+                            <ProcessorIcon processor={payment.processor} />
                         )}
                         <span>Payment method</span>
                     </H2>
@@ -156,9 +167,14 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
             {paymentInstrument.threeDSecureAuthentication !== null && (
                 <GridColumn>
                     <Panel data-testid="threeDS-panel">
-                        <H2>3DSecure</H2>
+                        <H2>
+                            <ThreeDSIcon />
+                            <span>3DSecure</span>
+                        </H2>
                         <H4>Response</H4>
-                        <Text>{paymentInstrument.threeDSecureAuthentication.responseCode}</Text>
+                        <ThreeDSResponseBadge
+                            status={paymentInstrument.threeDSecureAuthentication.responseCode}
+                        />
                     </Panel>
                 </GridColumn>
             )}

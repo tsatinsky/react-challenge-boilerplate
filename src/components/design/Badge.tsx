@@ -22,10 +22,9 @@ const Badge = styled.span<BadgeProps>`
         if (large) return fromTheme("textSizeBig");
         return fromTheme("textSizeSmall");
     }};
-
     padding: ${({ large }) => {
         if (large) return "12px 10px";
-        return "2px 4px";
+        return "2px 6px";
     }};
     border-radius: ${fromTheme("baseRadius")};
     display: inline-block;

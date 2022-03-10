@@ -10,6 +10,7 @@ import PaymentStatusBadge from "./shared/PaymentStatusBadge";
 import ProcessorIcon from "./shared/ProcessorIcon";
 import CardNetworkIcon from "./shared/CardNetworkIcon";
 import Button from "./design/Button";
+import Number from "./design/Number";
 
 export interface PaymentsListProps {
     payments: Array<Payment>;
@@ -33,7 +34,7 @@ const PaymentsList: React.FC<PaymentsListProps> = ({ payments, onPaymentClick })
                         <ColumnGrid proportions={[7, 3, 15, 8, 20, 10, 1]}>
                             <GridColumn>
                                 <Text align="right" big>
-                                    {payment.amount}
+                                    <Number value={payment.amount} />
                                 </Text>
                             </GridColumn>
                             <GridColumn>
@@ -64,7 +65,9 @@ const PaymentsList: React.FC<PaymentsListProps> = ({ payments, onPaymentClick })
                                 </Text>
                             </GridColumn>
                             <GridColumn>
-                                <Button onClick={() => handlePaymentClick(payment)}>{"〉"}</Button>
+                                <Button onClick={() => handlePaymentClick(payment)}>
+                                    <b>{"⟩"}</b>
+                                </Button>
                             </GridColumn>
                         </ColumnGrid>
                     </PanelRow>
