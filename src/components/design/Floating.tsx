@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { fromTheme } from "../../style";
 
+/**
+ * Floating element with margin in the direction of floating
+ */
+
 const Floating = styled.div<{ float?: "left" | "right" }>`
     float: ${({ float }) => {
         if (float) return float;

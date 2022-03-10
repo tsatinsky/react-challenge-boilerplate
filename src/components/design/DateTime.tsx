@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Formats date and time
+ */
+
 export interface DateTimeProps {
     date: Date;
 }

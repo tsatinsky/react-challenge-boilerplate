@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { fromTheme } from "../../style";
 
+/**
+ * Line-separated row to be used within the Panel component
+ */
+
 const PanelRow = styled.div`
     padding: ${fromTheme("morePadding")};
     border-bottom: 1px solid ${fromTheme("separatorColor")};

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-// TODO: use rems?
+// TODO: use rems
 export const theme = {
     pageBackground: "#f5f5f5",
     errorBackground: "#faeae8",

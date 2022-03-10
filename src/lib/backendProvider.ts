@@ -1,5 +1,9 @@
 import { Backend } from "./backend";
 
+/**
+ * Returns instance of authenticated staging backend
+ */
+
 export default async function getStagingBackend(): Promise<Backend> {
     try {
         const userName = process.env.REACT_APP_PRIMER_USER_NAME;

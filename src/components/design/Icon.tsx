@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-const Icon = styled.span<{ imagePath: string }>`
+/**
+ * Generic icon
+ * Background defined by the "imagePath" property
+ */
+
+export interface IconProps{
+    imagePath: string;
+}
+
+const Icon = styled.span<IconProps>`
     line-height: 24px;
     background-image: ${({ imagePath }) => {
         return `url(${imagePath})`;

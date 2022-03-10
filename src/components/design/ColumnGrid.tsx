@@ -1,7 +1,16 @@
 import styled from "styled-components";
 import { fromTheme } from "../../style";
 
-const Grid = styled.div<{ proportions?: number[] }>`
+/**
+ * Grid of columns with gaps between them.
+ * Number of columns and their size is defined by the proportions parameter
+ */
+
+export interface ColumnGridProps {
+    proportions?: number[]
+}
+
+const ColumnGrid = styled.div<ColumnGridProps>`
     display: grid;
     grid-template-columns: ${({ proportions }) => {
         // convert proportions to percentages
@@ -14,4 +23,4 @@ const Grid = styled.div<{ proportions?: number[] }>`
     gap: ${fromTheme("baseMargin")};
 `;
 
-export default Grid;
+export default ColumnGrid;

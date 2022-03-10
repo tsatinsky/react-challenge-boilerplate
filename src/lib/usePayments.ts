@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { Payment } from "./payment";
 import { AbstractBackend } from "./backend";
 
+/**
+ * React hook providing list of payments
+ * @param backendProvider Async function returning instance of AbstractBackend
+ */
+
 export default function usePayments(backendProvider: () => Promise<AbstractBackend>) {
     const [payments, setPayments] = useState<Array<Payment>>([]);
     useEffect(() => {

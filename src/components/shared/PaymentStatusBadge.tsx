@@ -6,6 +6,7 @@ export interface PaymentStatusBadgeProps {
     status: PaymentStatus;
     large?: boolean;
 }
+
 const PaymentStatusBadge: React.FC<PaymentStatusBadgeProps> = ({ status, large }) => {
     const text = status.toLowerCase();
     let badgeProps: BadgeProps = {};

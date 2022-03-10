@@ -32,7 +32,7 @@ export class Backend implements AbstractBackend {
 
     async request(method: Method, path: string) {
         if (!this.accessToken) {
-            throw new Error("Cannot requests before authentication");
+            throw new Error("Cannot request before authentication");
         }
         const response = await axios({
             method: method,

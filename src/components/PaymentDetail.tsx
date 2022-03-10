@@ -1,9 +1,9 @@
 import React from "react";
 import { isPaymentCardInstrumentData, isPaypalOrderInstrumentData, Payment } from "../lib/payment";
-import { getInstrumentName, capitalise, getCurrencySymbol } from "./paymentStrings";
+import { getInstrumentName, capitalise, getCurrencySymbol } from "./paymentStringTools";
 import Panel from "./design/Panel";
-import Grid from "./design/Grid";
-import GridRow from "./design/GridRow";
+import ColumnGrid from "./design/ColumnGrid";
+import GridColumn from "./design/GridColumn";
 import DateTime from "./design/DateTime";
 import { H2, H4, Text } from "./design/Typography";
 import Button from "./design/Button";
@@ -29,12 +29,12 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
         processorMerchantId,
     } = payment;
     return (
-        <Grid proportions={[1, 1]}>
-            <GridRow span={2}>
+        <ColumnGrid proportions={[1, 1]}>
+            <GridColumn span={2}>
                 <Button onClick={onBackClick}>{"← Transactions"}</Button>
-            </GridRow>
+            </GridColumn>
 
-            <GridRow span={2}>
+            <GridColumn span={2}>
                 <div>
                     <Floating>
                         <Text large>
@@ -54,20 +54,20 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                         </Text>
                     </Floating>
                 </div>
-            </GridRow>
+            </GridColumn>
 
-            <GridRow span={2}>
+            <GridColumn span={2}>
                 <Panel data-testid="overview-panel">
-                    <Grid proportions={[2, 2, 3, 6, 6, 4]}>
-                        <GridRow>
+                    <ColumnGrid proportions={[2, 2, 3, 6, 6, 4]}>
+                        <GridColumn>
                             <H4>Currency</H4>
                             <Text bigger>{currencyCode}</Text>
-                        </GridRow>
-                        <GridRow>
+                        </GridColumn>
+                        <GridColumn>
                             <H4>Processor</H4>
                             <Text bigger>{capitalise(processor)}</Text>
-                        </GridRow>
-                        <GridRow>
+                        </GridColumn>
+                        <GridColumn>
                             <H4>Payment method</H4>
                             <Text bigger>
                                 {getInstrumentName(payment.paymentInstrument.paymentInstrumentData)}
@@ -77,27 +77,27 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                                     </>
                                 )}
                             </Text>
-                        </GridRow>
-                        <GridRow>
+                        </GridColumn>
+                        <GridColumn>
                             <H4>Your reference</H4>
                             <Text bigger>{orderId}</Text>
-                        </GridRow>
-                        <GridRow>
+                        </GridColumn>
+                        <GridColumn>
                             <H4>Submitted</H4>
                             <Text bigger>
                                 <DateTime date={payment.dateParsed} />
                             </Text>
-                        </GridRow>
-                        <GridRow>
+                        </GridColumn>
+                        <GridColumn>
                             <Floating float="right">
                                 <PaymentStatusBadge status={status} large={true} />
                             </Floating>
-                        </GridRow>
-                    </Grid>
+                        </GridColumn>
+                    </ColumnGrid>
                 </Panel>
-            </GridRow>
+            </GridColumn>
 
-            <GridRow>
+            <GridColumn>
                 <Panel data-testid="processor-panel">
                     <H2>
                         <ProcessorIcon processor={payment.processor} />
@@ -105,6 +105,7 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                     </H2>
                     <H4>Account ID</H4>
                     <Text bigger>{processorMerchantId}</Text>
+                    {/*TODO: use styling instead*/}
                     <br />
                     <br />
                     <H4>Transaction ID</H4>
@@ -112,9 +113,9 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                     <br />
                     <br />
                 </Panel>
-            </GridRow>
+            </GridColumn>
 
-            <GridRow>
+            <GridColumn>
                 <Panel>
                     <H2 data-testid="instrument-panel">
                         {isPaymentCardInstrumentData(payment.paymentInstrument.paymentInstrumentData) && (
@@ -150,18 +151,18 @@ const PaymentDetail: React.FC<PaymentDetailProps> = ({ payment, onBackClick }) =
                         </>
                     )}
                 </Panel>
-            </GridRow>
+            </GridColumn>
 
             {paymentInstrument.threeDSecureAuthentication !== null && (
-                <GridRow>
+                <GridColumn>
                     <Panel data-testid="threeDS-panel">
                         <H2>3DSecure</H2>
                         <H4>Response</H4>
                         <Text>{paymentInstrument.threeDSecureAuthentication.responseCode}</Text>
                     </Panel>
-                </GridRow>
+                </GridColumn>
             )}
-        </Grid>
+        </ColumnGrid>
     );
 };
 

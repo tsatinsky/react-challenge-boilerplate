@@ -2,8 +2,8 @@ import React, { useCallback } from "react";
 import { isPaymentCardInstrumentData, Payment } from "../lib/payment";
 import Panel from "./design/Panel";
 import PanelRow from "./design/PanelRow";
-import Grid from "./design/Grid";
-import GridRow from "./design/GridRow";
+import ColumnGrid from "./design/ColumnGrid";
+import GridColumn from "./design/GridColumn";
 import DateTime from "./design/DateTime";
 import { H1, Text } from "./design/Typography";
 import PaymentStatusBadge from "./shared/PaymentStatusBadge";
@@ -30,21 +30,21 @@ const PaymentsList: React.FC<PaymentsListProps> = ({ payments, onPaymentClick })
             <Panel noPadding={true}>
                 {payments.map((payment) => (
                     <PanelRow onClick={() => handlePaymentClick(payment)} key={payment.id}>
-                        <Grid proportions={[7, 3, 15, 8, 20, 10, 1]}>
-                            <GridRow>
+                        <ColumnGrid proportions={[7, 3, 15, 8, 20, 10, 1]}>
+                            <GridColumn>
                                 <Text align="right" big>
                                     {payment.amount}
                                 </Text>
-                            </GridRow>
-                            <GridRow>
+                            </GridColumn>
+                            <GridColumn>
                                 <Text bigger>{payment.currencyCode}</Text>
-                            </GridRow>
-                            <GridRow>
+                            </GridColumn>
+                            <GridColumn>
                                 <PaymentStatusBadge status={payment.status}>
                                     {payment.status}
                                 </PaymentStatusBadge>
-                            </GridRow>
-                            <GridRow>
+                            </GridColumn>
+                            <GridColumn>
                                 <ProcessorIcon processor={payment.processor} />
                                 {isPaymentCardInstrumentData(
                                     payment.paymentInstrument.paymentInstrumentData,
@@ -53,20 +53,20 @@ const PaymentsList: React.FC<PaymentsListProps> = ({ payments, onPaymentClick })
                                         network={payment.paymentInstrument.paymentInstrumentData.network}
                                     />
                                 )}
-                            </GridRow>
-                            <GridRow>
+                            </GridColumn>
+                            <GridColumn>
                                 <Text>{payment.orderId}</Text>
-                            </GridRow>
+                            </GridColumn>
 
-                            <GridRow>
+                            <GridColumn>
                                 <Text>
                                     <DateTime date={payment.dateParsed} />
                                 </Text>
-                            </GridRow>
-                            <GridRow>
+                            </GridColumn>
+                            <GridColumn>
                                 <Button onClick={() => handlePaymentClick(payment)}>{"〉"}</Button>
-                            </GridRow>
-                        </Grid>
+                            </GridColumn>
+                        </ColumnGrid>
                     </PanelRow>
                 ))}
             </Panel>
