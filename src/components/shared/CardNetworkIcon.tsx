@@ -1,24 +1,22 @@
 import React from "react";
-import {CardNetwork} from "../../lib/payment";
+import { CardNetwork } from "../../lib/payment";
 
-import mc from "../../assets/mastercard.svg"
-import visa from "../../assets/visa.svg"
-import amex from "../../assets/amex.svg"
-import other from "../../assets/payment-card.svg"
+import mc from "../../assets/mastercard.svg";
+import visa from "../../assets/visa.svg";
+import amex from "../../assets/amex.svg";
+import other from "../../assets/payment-card.svg";
 
 import Icon from "../design/Icon";
 
-const CardNetworkIcon: React.FC<{ network: CardNetwork }> = ({network}) => {
+const CardNetworkIcon: React.FC<{ network: CardNetwork }> = ({ network }) => {
     const images = {
-        "Mastercard": mc,
-        "Visa": visa,
+        Mastercard: mc,
+        Visa: visa,
         "American Express": amex,
-        "other": other,
+        other: other,
     };
 
-    return (
-        <Icon imagePath={images[network]}/>
-    );
-}
+    return <Icon imagePath={images[network]} />;
+};
 
-export default CardNetworkIcon
+export default CardNetworkIcon;

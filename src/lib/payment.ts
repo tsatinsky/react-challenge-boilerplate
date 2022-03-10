@@ -1,8 +1,7 @@
-
-export type CardNetwork =  "Mastercard" | "Visa" | "American Express" | "other";
+export type CardNetwork = "Mastercard" | "Visa" | "American Express" | "other";
 
 export interface PaymentCardInstrumentData {
-    network: CardNetwork
+    network: CardNetwork;
     cardholderName: string;
     last4Digits: string;
     expirationMonth: string;
@@ -15,12 +14,16 @@ export interface PaypalOrderInstrumentData {
 
 export type PaymentInstrumentData = PaymentCardInstrumentData | PaypalOrderInstrumentData;
 
-export function isPaymentCardInstrumentData(instrumentData: PaymentInstrumentData): instrumentData is PaymentCardInstrumentData {
-    return (instrumentData as PaymentCardInstrumentData).cardholderName !== undefined
+export function isPaymentCardInstrumentData(
+    instrumentData: PaymentInstrumentData,
+): instrumentData is PaymentCardInstrumentData {
+    return (instrumentData as PaymentCardInstrumentData).cardholderName !== undefined;
 }
 
-export function isPaypalOrderInstrumentData(instrumentData: PaymentInstrumentData): instrumentData is PaypalOrderInstrumentData {
-    return (instrumentData as PaypalOrderInstrumentData).paypalOrderId !== undefined
+export function isPaypalOrderInstrumentData(
+    instrumentData: PaymentInstrumentData,
+): instrumentData is PaypalOrderInstrumentData {
+    return (instrumentData as PaypalOrderInstrumentData).paypalOrderId !== undefined;
 }
 
 export interface ThreeDSecureAuthentication {
@@ -52,571 +55,571 @@ export interface Payment {
     paymentInstrument: PaymentInstrument;
 }
 
-    // const testResponse: Array<Payment> =
-    //     [{
-    //         "id": "KZ2Gs2uA",
-    //         "date": "2021-12-02T12:52:22.585194+00:00",
-    //         "status": "SETTLED",
-    //         "orderId": "my_order_id",
-    //         "processor": "STRIPE",
-    //         "processorMerchantId": "acct_1GORcsGZqNWFwi8c",
-    //         "currencyCode": "EUR",
-    //         "amount": 45,
-    //         "amountAuthorized": 45,
-    //         "amountCaptured": 45,
-    //         "amountRefunded": 45,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "27wGIYl5RN6BtrZyMi67_HwxNjM4NDQ5NTQw",
-    //             "analyticsId": "OLNeV0cOWB-ngqb5p3R6SjNR",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "4242",
-    //                 "first6Digits": "424242",
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "John Doe",
-    //                 "network": "Visa",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "VISA",
-    //                     "issuerCountryCode": "US",
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "VISA",
-    //                     "productName": "VISA"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": {
-    //                 "responseCode": "NOT_PERFORMED",
-    //                 "reasonCode": null,
-    //                 "reasonText": null,
-    //                 "protocolVersion": null,
-    //                 "challengeIssued": null
-    //             }
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": {
-    //             "email": "user@primer.io",
-    //             "phoneNumber": null,
-    //             "billingAddress": null,
-    //             "shippingAddress": null,
-    //             "id": null
-    //         },
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "6XcFS4uV",
-    //         "date": "2020-12-08T14:34:29.253182+00:00",
-    //         "status": "FAILED",
-    //         "orderId": "WsEqBrTZvVLrUZYXrVsD",
-    //         "processor": "PAYPAL",
-    //         "processorMerchantId": "sb-32arh1340866@business.example.com",
-    //         "currencyCode": "GBP",
-    //         "amount": 1000,
-    //         "amountAuthorized": 0,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "Nd4X1h4pSr2hIEPzwulE3XwxNjA3NDM4MDY4",
-    //             "analyticsId": "LF0wHNjLXJSibsryKdOp8Gwt",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYPAL_ORDER",
-    //             "paymentInstrumentData": {
-    //                 "paypalOrderId": "QUFBjkRVWcEwCjEIHseshAWyDqHFYPvq",
-    //                 "externalPayerInfo": null,
-    //                 "paypalStatus": null
-    //             },
-    //             "threeDSecureAuthentication": {
-    //                 "responseCode": "NOT_PERFORMED",
-    //                 "reasonCode": null,
-    //                 "reasonText": null,
-    //                 "protocolVersion": null,
-    //                 "challengeIssued": null
-    //             }
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "1TKha2s1",
-    //         "date": "2020-12-08T14:34:24.374751+00:00",
-    //         "status": "SETTLING",
-    //         "orderId": "CFqNgojUMqHRGzlOFVBJDX",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 199,
-    //         "amountAuthorized": 199,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "Qy1Nq08xToS8nODRncjIvnwxNjA3NDM4MDYz",
-    //             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "1111",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "MR F. Bar",
-    //                 "network": "Visa",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "VISA",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "VISA",
-    //                     "productName": "VISA"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "ORzm8dBi",
-    //         "date": "2020-12-08T14:34:20.635258+00:00",
-    //         "status": "SETTLING",
-    //         "orderId": "nVpDsoYhQhzKlaiBpgjrqe",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 2000,
-    //         "amountAuthorized": 2000,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "kPKn4fgvQBmYA3Z8BJOhA3wxNjA3NDM4MDYw",
-    //             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "0004",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "Mrs Fred Bazzington",
-    //                 "network": "other",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MAESTRO",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MAESTRO",
-    //                     "productName": "MAESTRO"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "C0wQApvC",
-    //         "date": "2020-12-08T14:34:16.906517+00:00",
-    //         "status": "SETTLING",
-    //         "orderId": "tmnOGVggEgxQWhkLwzNzvk",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 394,
-    //         "amountAuthorized": 394,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "GSjjhXwKQ-iMj5GKOeKEhnwxNjA3NDM4MDU2",
-    //             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "0004",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "F. B. BAZ ESQ",
-    //                 "network": "other",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MAESTRO",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MAESTRO",
-    //                     "productName": "MAESTRO"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "xQCAIj6z",
-    //         "date": "2020-12-08T14:34:13.207836+00:00",
-    //         "status": "SETTLING",
-    //         "orderId": "yccQHZoZhFYkWbyPgODEih",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 100000,
-    //         "amountAuthorized": 100000,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "CaBu6Gr5TQmMHdRUZJkL43wxNjA3NDM4MDUy",
-    //             "analyticsId": "0aRlD7pxWemZECJj96kTy0ls",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "4444",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "MR F. B. BAZ",
-    //                 "network": "Mastercard",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MASTERCARD",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MASTERCARD",
-    //                     "productName": "MASTERCARD"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "medWBCt2",
-    //         "date": "2020-12-08T14:34:09.574595+00:00",
-    //         "status": "SETTLING",
-    //         "orderId": "okaMIBOluwwqMuEwtpuMNV",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 599,
-    //         "amountAuthorized": 599,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "i1v_5i7yTLuFWUKsOZZCTXwxNjA3NDM4MDQ5",
-    //             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "1111",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "MR FOO BAR",
-    //                 "network": "Visa",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "VISA",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "VISA",
-    //                     "productName": "VISA"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "sIZipdl7",
-    //         "date": "2020-12-08T14:34:07.318826+00:00",
-    //         "status": "AUTHORIZED",
-    //         "orderId": "oMspVVlskaXkaZOTEfZSEe",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 2000,
-    //         "amountAuthorized": 2000,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "Js6ZL77VQZSdagXlfvaSuXwxNjA3NDM4MDQ2",
-    //             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "0004",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "Mrs Fred Bazzington",
-    //                 "network": "other",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MAESTRO",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MAESTRO",
-    //                     "productName": "MAESTRO"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "RDIpOeHM",
-    //         "date": "2020-12-08T14:34:04.976225+00:00",
-    //         "status": "AUTHORIZED",
-    //         "orderId": "GEbThuXOGzIrCDtDilPtmZ",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 394,
-    //         "amountAuthorized": 394,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "g4LAIDeEQ3KybCBOp6n3UXwxNjA3NDM4MDQ0",
-    //             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "0004",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "F. B. BAZ ESQ",
-    //                 "network": "other",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MAESTRO",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MAESTRO",
-    //                     "productName": "MAESTRO"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "SYPy0h13",
-    //         "date": "2020-12-08T14:34:02.740337+00:00",
-    //         "status": "AUTHORIZED",
-    //         "orderId": "NGCiXtVqZNBFSggzlAHyeG",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 100000,
-    //         "amountAuthorized": 100000,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "tp3pM3bgRDCHQNi-enMRd3wxNjA3NDM4MDQy",
-    //             "analyticsId": "0aRlD7pxWemZECJj96kTy0ls",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "4444",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "MR F. B. BAZ",
-    //                 "network": "Mastercard",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "MASTERCARD",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "MASTERCARD",
-    //                     "productName": "MASTERCARD"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "Oybdbo8E",
-    //         "date": "2020-12-08T14:34:00.279077+00:00",
-    //         "status": "AUTHORIZED",
-    //         "orderId": "RybPzeSkFvfuekMpkmBwvh",
-    //         "processor": "ADYEN",
-    //         "processorMerchantId": "PrimerJbTestECOM",
-    //         "currencyCode": "EUR",
-    //         "amount": 599,
-    //         "amountAuthorized": 599,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 0,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "yQyyk6SATIC8INoEerkIcnwxNjA3NDM4MDM5",
-    //             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "1111",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "MR FOO BAR",
-    //                 "network": "Visa",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "VISA",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "VISA",
-    //                     "productName": "VISA"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
-    //         "metadata": null
-    //     }, {
-    //         "id": "GkjaEpEr",
-    //         "date": "2020-12-08T14:33:56.043795+00:00",
-    //         "status": "SETTLED",
-    //         "orderId": "DWPnRfuRvOdMbWYtuDXBWc",
-    //         "processor": "STRIPE",
-    //         "processorMerchantId": "acct_1GORcsGZqNWFwi8c",
-    //         "currencyCode": "EUR",
-    //         "amount": 394,
-    //         "amountAuthorized": 394,
-    //         "amountCaptured": 0,
-    //         "amountRefunded": 394,
-    //         "requiredAction": null,
-    //         "statementDescriptor": null,
-    //         "paymentInstrument": {
-    //             "token": "yuAKKmtqS-mLFb0fcfn-H3wxNjA3NDM4MDM1",
-    //             "analyticsId": "NKS8fpx0VlG4IaO8-E5NQEY1",
-    //             "tokenType": "SINGLE_USE",
-    //             "paymentInstrumentType": "PAYMENT_CARD",
-    //             "paymentInstrumentData": {
-    //                 "last4Digits": "0005",
-    //                 "first6Digits": null,
-    //                 "expirationMonth": "03",
-    //                 "expirationYear": "2030",
-    //                 "cardholderName": "F. B. BAZ ESQ",
-    //                 "network": "American Express",
-    //                 "isNetworkTokenized": false,
-    //                 "binData": {
-    //                     "network": "AMEX",
-    //                     "issuerCountryCode": null,
-    //                     "issuerName": null,
-    //                     "issuerCurrencyCode": null,
-    //                     "regionalRestriction": "UNKNOWN",
-    //                     "accountNumberType": "UNKNOWN",
-    //                     "accountFundingType": "UNKNOWN",
-    //                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
-    //                     "productUsageType": "UNKNOWN",
-    //                     "productCode": "AMEX",
-    //                     "productName": "AMEX"
-    //                 }
-    //             },
-    //             "threeDSecureAuthentication": null
-    //         },
-    //         "vaultedPaymentInstrument": null,
-    //         "customer": null,
-    //         "lastPaymentError": null,
+// const testResponse: Array<Payment> =
+//     [{
+//         "id": "KZ2Gs2uA",
+//         "date": "2021-12-02T12:52:22.585194+00:00",
+//         "status": "SETTLED",
+//         "orderId": "my_order_id",
+//         "processor": "STRIPE",
+//         "processorMerchantId": "acct_1GORcsGZqNWFwi8c",
+//         "currencyCode": "EUR",
+//         "amount": 45,
+//         "amountAuthorized": 45,
+//         "amountCaptured": 45,
+//         "amountRefunded": 45,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "27wGIYl5RN6BtrZyMi67_HwxNjM4NDQ5NTQw",
+//             "analyticsId": "OLNeV0cOWB-ngqb5p3R6SjNR",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "4242",
+//                 "first6Digits": "424242",
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "John Doe",
+//                 "network": "Visa",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "VISA",
+//                     "issuerCountryCode": "US",
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "VISA",
+//                     "productName": "VISA"
+//                 }
+//             },
+//             "threeDSecureAuthentication": {
+//                 "responseCode": "NOT_PERFORMED",
+//                 "reasonCode": null,
+//                 "reasonText": null,
+//                 "protocolVersion": null,
+//                 "challengeIssued": null
+//             }
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": {
+//             "email": "user@primer.io",
+//             "phoneNumber": null,
+//             "billingAddress": null,
+//             "shippingAddress": null,
+//             "id": null
+//         },
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "6XcFS4uV",
+//         "date": "2020-12-08T14:34:29.253182+00:00",
+//         "status": "FAILED",
+//         "orderId": "WsEqBrTZvVLrUZYXrVsD",
+//         "processor": "PAYPAL",
+//         "processorMerchantId": "sb-32arh1340866@business.example.com",
+//         "currencyCode": "GBP",
+//         "amount": 1000,
+//         "amountAuthorized": 0,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "Nd4X1h4pSr2hIEPzwulE3XwxNjA3NDM4MDY4",
+//             "analyticsId": "LF0wHNjLXJSibsryKdOp8Gwt",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYPAL_ORDER",
+//             "paymentInstrumentData": {
+//                 "paypalOrderId": "QUFBjkRVWcEwCjEIHseshAWyDqHFYPvq",
+//                 "externalPayerInfo": null,
+//                 "paypalStatus": null
+//             },
+//             "threeDSecureAuthentication": {
+//                 "responseCode": "NOT_PERFORMED",
+//                 "reasonCode": null,
+//                 "reasonText": null,
+//                 "protocolVersion": null,
+//                 "challengeIssued": null
+//             }
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "1TKha2s1",
+//         "date": "2020-12-08T14:34:24.374751+00:00",
+//         "status": "SETTLING",
+//         "orderId": "CFqNgojUMqHRGzlOFVBJDX",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 199,
+//         "amountAuthorized": 199,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "Qy1Nq08xToS8nODRncjIvnwxNjA3NDM4MDYz",
+//             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "1111",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "MR F. Bar",
+//                 "network": "Visa",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "VISA",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "VISA",
+//                     "productName": "VISA"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "ORzm8dBi",
+//         "date": "2020-12-08T14:34:20.635258+00:00",
+//         "status": "SETTLING",
+//         "orderId": "nVpDsoYhQhzKlaiBpgjrqe",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 2000,
+//         "amountAuthorized": 2000,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "kPKn4fgvQBmYA3Z8BJOhA3wxNjA3NDM4MDYw",
+//             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "0004",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "Mrs Fred Bazzington",
+//                 "network": "other",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MAESTRO",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MAESTRO",
+//                     "productName": "MAESTRO"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "C0wQApvC",
+//         "date": "2020-12-08T14:34:16.906517+00:00",
+//         "status": "SETTLING",
+//         "orderId": "tmnOGVggEgxQWhkLwzNzvk",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 394,
+//         "amountAuthorized": 394,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "GSjjhXwKQ-iMj5GKOeKEhnwxNjA3NDM4MDU2",
+//             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "0004",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "F. B. BAZ ESQ",
+//                 "network": "other",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MAESTRO",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MAESTRO",
+//                     "productName": "MAESTRO"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "xQCAIj6z",
+//         "date": "2020-12-08T14:34:13.207836+00:00",
+//         "status": "SETTLING",
+//         "orderId": "yccQHZoZhFYkWbyPgODEih",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 100000,
+//         "amountAuthorized": 100000,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "CaBu6Gr5TQmMHdRUZJkL43wxNjA3NDM4MDUy",
+//             "analyticsId": "0aRlD7pxWemZECJj96kTy0ls",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "4444",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "MR F. B. BAZ",
+//                 "network": "Mastercard",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MASTERCARD",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MASTERCARD",
+//                     "productName": "MASTERCARD"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "medWBCt2",
+//         "date": "2020-12-08T14:34:09.574595+00:00",
+//         "status": "SETTLING",
+//         "orderId": "okaMIBOluwwqMuEwtpuMNV",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 599,
+//         "amountAuthorized": 599,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "i1v_5i7yTLuFWUKsOZZCTXwxNjA3NDM4MDQ5",
+//             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "1111",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "MR FOO BAR",
+//                 "network": "Visa",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "VISA",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "VISA",
+//                     "productName": "VISA"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "sIZipdl7",
+//         "date": "2020-12-08T14:34:07.318826+00:00",
+//         "status": "AUTHORIZED",
+//         "orderId": "oMspVVlskaXkaZOTEfZSEe",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 2000,
+//         "amountAuthorized": 2000,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "Js6ZL77VQZSdagXlfvaSuXwxNjA3NDM4MDQ2",
+//             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "0004",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "Mrs Fred Bazzington",
+//                 "network": "other",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MAESTRO",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MAESTRO",
+//                     "productName": "MAESTRO"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "RDIpOeHM",
+//         "date": "2020-12-08T14:34:04.976225+00:00",
+//         "status": "AUTHORIZED",
+//         "orderId": "GEbThuXOGzIrCDtDilPtmZ",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 394,
+//         "amountAuthorized": 394,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "g4LAIDeEQ3KybCBOp6n3UXwxNjA3NDM4MDQ0",
+//             "analyticsId": "uEwN0OKdVWi0btoc4cI9uFBk",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "0004",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "F. B. BAZ ESQ",
+//                 "network": "other",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MAESTRO",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MAESTRO",
+//                     "productName": "MAESTRO"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "SYPy0h13",
+//         "date": "2020-12-08T14:34:02.740337+00:00",
+//         "status": "AUTHORIZED",
+//         "orderId": "NGCiXtVqZNBFSggzlAHyeG",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 100000,
+//         "amountAuthorized": 100000,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "tp3pM3bgRDCHQNi-enMRd3wxNjA3NDM4MDQy",
+//             "analyticsId": "0aRlD7pxWemZECJj96kTy0ls",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "4444",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "MR F. B. BAZ",
+//                 "network": "Mastercard",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "MASTERCARD",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "MASTERCARD",
+//                     "productName": "MASTERCARD"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "Oybdbo8E",
+//         "date": "2020-12-08T14:34:00.279077+00:00",
+//         "status": "AUTHORIZED",
+//         "orderId": "RybPzeSkFvfuekMpkmBwvh",
+//         "processor": "ADYEN",
+//         "processorMerchantId": "PrimerJbTestECOM",
+//         "currencyCode": "EUR",
+//         "amount": 599,
+//         "amountAuthorized": 599,
+//         "amountCaptured": 0,
+//         "amountRefunded": 0,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "yQyyk6SATIC8INoEerkIcnwxNjA3NDM4MDM5",
+//             "analyticsId": "J6HhBcMmWgWy5lUaYfffe2oz",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "1111",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "MR FOO BAR",
+//                 "network": "Visa",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "VISA",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "VISA",
+//                     "productName": "VISA"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
+//         "metadata": null
+//     }, {
+//         "id": "GkjaEpEr",
+//         "date": "2020-12-08T14:33:56.043795+00:00",
+//         "status": "SETTLED",
+//         "orderId": "DWPnRfuRvOdMbWYtuDXBWc",
+//         "processor": "STRIPE",
+//         "processorMerchantId": "acct_1GORcsGZqNWFwi8c",
+//         "currencyCode": "EUR",
+//         "amount": 394,
+//         "amountAuthorized": 394,
+//         "amountCaptured": 0,
+//         "amountRefunded": 394,
+//         "requiredAction": null,
+//         "statementDescriptor": null,
+//         "paymentInstrument": {
+//             "token": "yuAKKmtqS-mLFb0fcfn-H3wxNjA3NDM4MDM1",
+//             "analyticsId": "NKS8fpx0VlG4IaO8-E5NQEY1",
+//             "tokenType": "SINGLE_USE",
+//             "paymentInstrumentType": "PAYMENT_CARD",
+//             "paymentInstrumentData": {
+//                 "last4Digits": "0005",
+//                 "first6Digits": null,
+//                 "expirationMonth": "03",
+//                 "expirationYear": "2030",
+//                 "cardholderName": "F. B. BAZ ESQ",
+//                 "network": "American Express",
+//                 "isNetworkTokenized": false,
+//                 "binData": {
+//                     "network": "AMEX",
+//                     "issuerCountryCode": null,
+//                     "issuerName": null,
+//                     "issuerCurrencyCode": null,
+//                     "regionalRestriction": "UNKNOWN",
+//                     "accountNumberType": "UNKNOWN",
+//                     "accountFundingType": "UNKNOWN",
+//                     "prepaidReloadableIndicator": "NOT_APPLICABLE",
+//                     "productUsageType": "UNKNOWN",
+//                     "productCode": "AMEX",
+//                     "productName": "AMEX"
+//                 }
+//             },
+//             "threeDSecureAuthentication": null
+//         },
+//         "vaultedPaymentInstrument": null,
+//         "customer": null,
+//         "lastPaymentError": null,
 //         "metadata": null
 //     }, {
 //         "id": "UaAuUgMo",

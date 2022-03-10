@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 // TODO: use rems?
 export const theme = {
@@ -52,4 +52,4 @@ const Style = createGlobalStyle`
   }
 `;
 
-export default Style
+export default Style;
