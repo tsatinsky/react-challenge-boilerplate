@@ -1,6 +1,11 @@
-import axios, {AxiosRequestConfig, Method} from "axios";
+import axios, {Method} from "axios";
 
-export class Backend {
+export abstract class AbstractBackend {
+    abstract authenticate(userName: string, password: string): Promise<AbstractBackend>;
+    abstract request(method: Method, path: string): Promise<any>
+}
+
+export class Backend implements AbstractBackend{
     private accessToken: string = "";
     private readonly baseUrl: string;
 
@@ -25,18 +30,18 @@ export class Backend {
         return this;
     }
 
-    async request(method: Method, path: string, config: AxiosRequestConfig = {}) {
+    async request(method: Method, path: string) {
         if (!this.accessToken) {
             throw new Error("Cannot requests before authentication");
         }
-        return axios({
+        const response = await axios({
             method: method,
             url: path,
             baseURL: this.baseUrl,
             headers: {
                 authorization: `Bearer ${this.accessToken}`
             },
-            ...config
         });
+        return response.data;
     }
 }

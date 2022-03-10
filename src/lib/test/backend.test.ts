@@ -62,7 +62,7 @@ describe("backend", () => {
         const backend = await new Backend("www.domain.xyz").authenticate("usr", "pass");
         const testResponse = await backend.request("get", "/test");
 
-        expect(testResponse.data).toEqual({"data": "123456"})
+        expect(testResponse).toEqual({"data": "123456"})
     });
 
     it("throws an error when request is called before authentication", async () => {

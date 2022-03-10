@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-import {useCallback, useEffect, useState} from "react";
-import getBackend from "./lib/backendProvider";
+import {useCallback, useState} from "react";
+import getStagingBackend from "./lib/backendProvider";
 import {Payment} from "./lib/payment";
 import PaymentsList from "./components/PaymentsList";
 import PaymentDetail from "./components/PaymentDetail";
 import {Text} from "./components/design/Typography";
+import usePayments from "./lib/usePayments";
 
 const AppWrapper = styled.div`
   margin: 2rem auto;
@@ -14,24 +15,9 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
-    const [payments, setPayments] = useState<Array<Payment>>([]);
+    const payments = usePayments(getStagingBackend)
+
     const [currentPayment, setCurrentPayment] = useState<Payment | undefined>(undefined)
-
-    useEffect(() => {
-        (async function getPayments() {
-            const backend = await getBackend();
-            if (backend) {
-                const paymentsResponse = await backend.request("get", "/payments");
-                setPayments(paymentsResponse.data.data.map((original: any) => {
-                    return {
-                        ...original,
-                        dateParsed: new Date(original.date),
-                    }
-                }));
-            }
-        })();
-    }, []);
-
     const handleBackClick = useCallback(() => setCurrentPayment(undefined), []);
 
     return (

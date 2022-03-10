@@ -1,12 +1,6 @@
 import {Backend} from "./backend";
 
-let backend: Backend;
-
-export default async function getBackend():Promise<Backend | undefined> {
-    if (backend) {
-        return backend;
-    }
-
+export default async function getStagingBackend():Promise<Backend> {
     try {
         const userName = process.env.REACT_APP_PRIMER_USER_NAME;
         const password = process.env.REACT_APP_PRIMER_PASSWORD;
@@ -22,6 +16,6 @@ export default async function getBackend():Promise<Backend | undefined> {
         } else {
             console.error(e.toString());
         }
-        return undefined;
+        throw e;
     }
 }
